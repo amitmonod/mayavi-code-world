@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mayavi Code World</title>
+<style>
+body{margin:0;font-family:Arial,sans-serif;background:#0f1025;color:white}
+header{background:#1a1b3a;padding:14px 18px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+.logo{font-size:22px;font-weight:900}.logo span{color:#ffd43b}
+.pill{background:#2a2b55;padding:6px 10px;border-radius:20px;font-size:13px}
+.bar{height:10px;background:#333;border-radius:10px;overflow:hidden;width:180px}.fill{height:100%;width:70%;background:#4ade80}
+.wrap{max-width:980px;margin:0 auto;padding:18px}
+.hero{background:linear-gradient(135deg,#7c3aed,#22c55e);padding:26px;border-radius:18px}
+.hero h1{margin:0;font-size:32px;line-height:1.1}.hero p{font-size:16px}
+.btn{border:0;padding:12px 18px;border-radius:12px;font-weight:800;cursor:pointer;font-size:15px}
+.btn-y{background:#ffd43b}.btn-w{background:white}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px}@media(max-width:640px){.grid{grid-template-columns:1fr}}
+.card{background:#1e2048;padding:16px;border-radius:16px;border:2px solid #333}
+.card.active{border-color:#4ade80}.locked{opacity:.6}
+.level{cursor:pointer}.level h3{margin:4px 0}.tag{display:inline-block;background:#ffd43b;color:#111;padding:3px 8px;border-radius:10px;font-size:12px;font-weight:800}
+.detail{background:white;color:#111;padding:18px;border-radius:16px;margin-top:16px}
+.detail h2{margin-top:0}.code{background:#111;color:#7CFC00;padding:12px;border-radius:10px;font-family:monospace;white-space:pre-wrap}
+.qbtn{background:#eee;border:1px solid #ccc;padding:10px;border-radius:10px;cursor:pointer;margin:4px 4px 4px 0}
+.qbtn.correct{background:#bbf7d0}.qbtn.wrong{background:#fecaca}
+input,textarea{width:100%;padding:10px;border-radius:10px;border:1px solid #ccc;margin:6px 0;box-sizing:border-box;font-size:15px}
+.small{font-size:13px;color:#cbd5e1}.detail .small{color:#666}
+</style></head><body>
+<header><div class="logo">⭐ MAYAVI <span>CODE WORLD</span></div><div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center"><div class="pill">XP 350 / 500 <div class="bar"><div class="fill"></div></div></div><div class="pill">🪙 120 Coins</div><div class="pill">🔥 3 Days</div><div class="pill">❤️❤️❤️</div></div></header>
+<div class="wrap">
+<div class="hero"><h1>Learn Coding By Playing.<br>Teach To Learn More.</h1><p>1 topic = 1 story + 1 broken code + 1 boss fight. If you can teach it in 60 seconds, you win.</p><button class="btn btn-y" onclick="document.getElementById('python').scrollIntoView({behavior:'smooth'})">▶ Play Python World</button> <button class="btn btn-w" onclick="document.getElementById('teach').scrollIntoView({behavior:'smooth'})">🎤 Teach Mode</button></div>
+
+<h2>🌍 Worlds</h2><div class="grid">
+<div class="card active"><h3>🌲 Python World</h3><p>Green Forest • 5 Levels • UNLOCKED</p><span class="tag">START HERE</span></div>
+<div class="card locked"><h3>🌊 SQL World</h3><p>Blue Ocean • 5 Levels • LOCKED</p></div>
+<div class="card locked"><h3>🏙️ JavaScript World</h3><p>Yellow City • LOCKED</p></div>
+<div class="card locked"><h3>⛰️ Java World</h3><p>Red Mountain • LOCKED</p></div></div>
+
+<h2 id="python">🐍 Python World — 5 Levels — Click a level</h2>
+<div class="grid" id="levels"></div>
+<div class="detail" id="detail"><h2>Click a Level above to start 👆</h2><p>Every level uses MAYAVI template: M - Meaning, A - Analogy, Y - Your Example, A - Action Game, V - Voice Teach, I - Interview Question.</p></div>
+
+<div class="card" style="margin-top:16px"><h2>👹 BOSS FIGHT — Python World Boss</h2><p>Answer 5 questions. 4 correct = You Win +500 XP</p><div id="boss"></div><button class="btn btn-y" onclick="startBoss()">Start Boss Fight</button> <span id="bossScore"></span></div>
+
+<div class="card" id="teach" style="margin-top:16px"><h2>🎤 TEACH TO EARN</h2><p>Finish a level, then teach it in 60 seconds. If 10 people like it, you get +200 XP.</p><textarea id="teachText" rows="3" placeholder="Write your 60-sec teaching in easy words... Example: Print is like a speaker..."></textarea><button class="btn btn-y" onclick="uploadTeach()">Upload My Teaching +200 XP</button><p id="teachMsg"></p><div id="teachList"></div></div>
+
+<div class="card" style="margin-top:16px"><h2>➕ Upload New Language — Same MAYAVI Template</h2><input id="lang" placeholder="Language Name - Example: SQL"><input id="topic" placeholder="Topic Name - Example: SELECT"><textarea id="meaning" rows="2" placeholder="M - Meaning in 1 line"></textarea><textarea id="analogy" rows="2" placeholder="A - Analogy / Real life story"></textarea><textarea id="excode" rows="2" placeholder="Y - Example Code"></textarea><button class="btn btn-y" onclick="addLevel()">Add New Level</button><div id="myLevels"></div></div>
+
+<div class="grid" style="margin-top:16px"><div class="card"><h3>🆓 Free Play</h3><p>All basic levels free.</p></div><div class="card"><h3>📄 PDF Notes ₹99</h3><p>Python Complete Notes - Mayavi Method</p></div><div class="card"><h3>👑 Premium ₹299</h3><p>Full Python + SQL + Certificate</p></div><div class="card"><h3>🎥 Live Class ₹199</h3><p>Sunday 1 hour - Learn Python Easy</p></div></div>
+<p class="small" style="text-align:center;margin-top:20px">Made by Mayavi • Learn • Teach • Earn • If you can teach it in 60 seconds, you know it.</p>
+</div>
+<script>
+const data=[
+{id:1,title:"Print",nick:"The Speaker",xp:100,status:"DONE ✅",m:"Print means 'Shout it on screen'",a:"Print is like a Speaker / Mic. You give it words, it shouts them.",y:'print("Hello Mayavi")',q:"Guess: What will print(\"10\" + \"20\") show?",opts:["30","1020","Error"],ans:1,exp:"Correct is 1020 because \"10\" in quotes is a word, not a number. Word + Word = Joining.",interview:"What does print() do? Answer: It shows output on screen."},
+{id:2,title:"Input",nick:"The Asker",xp:100,status:"DONE ✅",m:"Input means 'Ask user and take answer'",a:"Input is like The Asker - asks 'What is your name?'",y:'name = input("What is your name? ")',q:"Fix: input(\"Enter number\") is missing what?",opts:[")",";",":"],ans:0,exp:"Correct is ) - Every ( needs a ).",interview:"Why use input()? Answer: To take data from user."},
+{id:3,title:"If / Else",nick:"The Guard",xp:100,status:"PLAYING NOW ▶",m:"If means 'If this is true, do this, else do that'",a:"Guard at gate - If you have ticket, go inside, else stay outside.",y:'if age >= 18:\n    print("You can vote")',q:"Guess: age = 10, what will it print?",opts:["You can vote","You cannot vote"],ans:1,exp:"10 is less than 18, so Else part runs.",interview:"Difference between if and else? if = check, else = if check fails."},
+{id:4,title:"Loop",nick:"The Repeater",xp:100,status:"LOCKED 🔒",m:"Loop means 'Repeat work, don't type same line 100 times'",a:"Like counting 1 to 10, you say repeat, you don't write all.",y:'for i in range(5):\n    print("Hello")',q:"What if range(5) becomes range(3)? How many Hellos?",opts:["3","5"],ans:0,exp:"range(3) = 3 times.",interview:"Difference between FOR and WHILE? FOR = when you know count, WHILE = when you don't know."},
+{id:5,title:"Function",nick:"The Machine",xp:100,status:"LOCKED 🔒",m:"Function means 'A small machine that does one work'",a:"Like a mixer - you put mango, you get juice.",y:'def add(a,b):\n    return a+b',q:"Guess: add(5,3) = ?",opts:["8","53","15"],ans:0,exp:"5+3=8",interview:"Why use functions? Answer: Write once, use many times."}
+];
+let bossQs=[{q:"What does print() do?",o:["Shows output","Takes input","Deletes file"],a:0},{q:"What is != ?",o:["Equal","Not Equal","Greater"],a:1},{q:"What does input() do?",o:["Shouts","Asks user","Loops"],a:1},{q:"What is a Loop?",o:["Repeat work","Delete work","One time work"],a:0},{q:"What is a Function?",o:["A small machine","A photo","A song"],a:0}];
+let bossIdx=0,bossScore=0;
+function renderLevels(){document.getElementById('levels').innerHTML=data.map(d=>`<div class="card level ${d.id==3?'active':''}" onclick="show(${d.id})"><span class="tag">Level ${d.id} • ${d.xp} XP</span><h3>${d.title} — ${d.nick}</h3><p>${d.status}</p></div>`).join('')}
+function show(id){let d=data.find(x=>x.id==id);document.getElementById('detail').innerHTML=`<h2>Level ${d.id}: ${d.title} — ${d.nick}</h2><p><b>M - Meaning:</b> ${d.m}</p><p><b>A - Analogy:</b> ${d.a}</p><div class="code">${d.y}</div><h3>🎮 Action Game</h3><p>${d.q}</p><div>${d.opts.map((o,i)=>`<button class="qbtn" onclick="check(this,${i},${d.ans},'${d.exp.replace(/'/g,"")}')">${o}</button>`).join('')}</div><p id="fb"></p><p><b>V - Voice:</b> Teach this in 60 seconds out loud. If you can explain, you pass.</p><p><b>I - Interview:</b> ${d.interview}</p>`;document.getElementById('detail').scrollIntoView({behavior:'smooth'})}
+function check(btn,i,ans,exp){if(i==ans){btn.classList.add('correct');document.getElementById('fb').innerHTML="✅ Correct! "+exp+" +100 XP";}else{btn.classList.add('wrong');document.getElementById('fb').innerHTML="❌ Try again! Hint: "+exp;}}
+function startBoss(){bossIdx=0;bossScore=0;showBoss()}
+function showBoss(){if(bossIdx>=bossQs.length){document.getElementById('boss').innerHTML=`<h3>Boss Result: ${bossScore} / 5</h3><p>${bossScore>=4?"🎉 You Win! +500 XP, SQL World Unlocked!":"💪 Try again! You need 4 to win."}</p>`;document.getElementById('bossScore').innerText="";return}let q=bossQs[bossIdx];document.getElementById('boss').innerHTML=`<p><b>Q${bossIdx+1}: ${q.q}</b></p>`+q.o.map((o,i)=>`<button class="qbtn" onclick="bossAns(${i})">${o}</button>`).join('')}
+function bossAns(i){if(i==bossQs[bossIdx].a)bossScore++;bossIdx++;showBoss()}
+function uploadTeach(){let t=document.getElementById('teachText').value;if(!t.trim()){document.getElementById('teachMsg').innerText="Write something first!";return}document.getElementById('teachMsg').innerText="✅ Teaching Uploaded! +200 XP";document.getElementById('teachList').innerHTML+=`<div style="background:#f1f5f9;padding:10px;border-radius:10px;margin-top:8px;color:#111">🎤 ${t} <br><small>❤️ 10 likes • +200 XP</small></div>`;document.getElementById('teachText').value=""}
+function addLevel(){let l=document.getElementById('lang').value,t=document.getElementById('topic').value,m=document.getElementById('meaning').value,a=document.getElementById('analogy').value,c=document.getElementById('excode').value;if(!l||!t){alert("Write Language and Topic");return}document.getElementById('myLevels').innerHTML+=`<div style="background:#f1f5f9;padding:10px;border-radius:10px;margin-top:8px;color:#111"><b>${l} — ${t}</b><br>M: ${m}<br>A: ${a}<br><code>${c}</code></div>`;document.getElementById('lang').value="";document.getElementById('topic').value="";document.getElementById('meaning').value="";document.getElementById('analogy').value="";document.getElementById('excode').value=""}
+renderLevels();
+</script></body></html>
